@@ -30,46 +30,58 @@ import java.util.Map;
 @AllArgsConstructor
 public class FileMetadataDto {
 
-    private Long contentLength;
-    private String contentType;
-    private Map<String, String> userMetadata = new LinkedHashMap<>();
+  private Long contentLength;
+  private String contentType;
+  private Map<String, String> userMetadata = new LinkedHashMap<>();
 
-    public FileMetadataDto(String contentType, Map<String, String> userMetadata) {
-        this.contentType = contentType;
-        this.userMetadata = userMetadata;
-    }
+  public FileMetadataDto(String contentType, Map<String, String> userMetadata) {
+    this.contentType = contentType;
+    this.userMetadata = userMetadata;
+  }
 
-    @Builder
-    public FileMetadataDto(Long contentLength, String contentType, String id, String checksum,
-                           String filename) {
-        this.contentLength = contentLength;
-        this.contentType = contentType;
-        userMetadata.put(UserMetadataHeaders.ID.getValue(), id);
-        userMetadata.put(UserMetadataHeaders.CHECKSUM.getValue(), checksum);
-        userMetadata.put(UserMetadataHeaders.FILENAME.getValue(), filename);
-    }
+  @Builder
+  public FileMetadataDto(Long contentLength, String contentType, String id, String checksum,
+      String filename, String fieldName, String formKey) {
+    this.contentLength = contentLength;
+    this.contentType = contentType;
+    userMetadata.put(UserMetadataHeaders.ID.getValue(), id);
+    userMetadata.put(UserMetadataHeaders.CHECKSUM.getValue(), checksum);
+    userMetadata.put(UserMetadataHeaders.FILENAME.getValue(), filename);
+    userMetadata.put(UserMetadataHeaders.FIELD_NAME.getValue(), fieldName);
+    userMetadata.put(UserMetadataHeaders.FORM_KEY.getValue(), formKey);
+  }
 
-    public String getId() {
-        return userMetadata.get(UserMetadataHeaders.ID.getValue());
-    }
+  public String getId() {
+    return userMetadata.get(UserMetadataHeaders.ID.getValue());
+  }
 
-    public String getChecksum() {
-        return userMetadata.get(UserMetadataHeaders.CHECKSUM.getValue());
-    }
+  public String getChecksum() {
+    return userMetadata.get(UserMetadataHeaders.CHECKSUM.getValue());
+  }
 
-    public String getFilename() {
-        return userMetadata.get(UserMetadataHeaders.FILENAME.getValue());
-    }
+  public String getFilename() {
+    return userMetadata.get(UserMetadataHeaders.FILENAME.getValue());
+  }
 
-    @Getter
-    @RequiredArgsConstructor
-    public enum UserMetadataHeaders {
+  public String getFieldName() {
+    return userMetadata.get(UserMetadataHeaders.FIELD_NAME.getValue());
+  }
 
-        ID("id"),
-        CHECKSUM("checksum"),
-        FILENAME("filename");
+  public String getFormKey() {
+    return userMetadata.get(UserMetadataHeaders.FORM_KEY.getValue());
+  }
 
-        private final String value;
+  @Getter
+  @RequiredArgsConstructor
+  public enum UserMetadataHeaders {
 
-    }
+    ID("id"),
+    CHECKSUM("checksum"),
+    FILENAME("filename"),
+    FIELD_NAME("fieldName"),
+    FORM_KEY("formKey");
+
+    private final String value;
+
+  }
 }

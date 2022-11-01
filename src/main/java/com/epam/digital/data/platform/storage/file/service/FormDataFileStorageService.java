@@ -118,6 +118,19 @@ public class FormDataFileStorageService {
   }
 
   /**
+   * Get metadata by generated key based on specified process instance id
+   *
+   * @param processInstanceId the process instance id to whom file ids attracted to
+   */
+  public List<FileMetadataDto> getMetadata(String processInstanceId) {
+    log.info("Get metadata by process instance id {}", processInstanceId);
+    var prefix = keyProvider.getKeyPrefixByProcessInstanceId(processInstanceId);
+    var result = repository.getMetadata(prefix);
+    log.info("Metadata was found by prefix {}", prefix);
+    return result;
+  }
+
+  /**
    * Delete files by process instance id.
    *
    * @param processInstanceId specified process id

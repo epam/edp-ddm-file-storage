@@ -59,6 +59,15 @@ public interface FormDataFileRepository {
     List<FileMetadataDto> getMetadata(Set<String> keys);
 
     /**
+     * Get files metadata by prefix
+     *
+     * @param prefix specified prefix
+     * @return list of metadata
+     */
+    @NewSpan("getFilesMetadata")
+    List<FileMetadataDto> getMetadata(String prefix);
+
+    /**
      * Get storage keys by prefix
      *
      * @param prefix srovided prefix

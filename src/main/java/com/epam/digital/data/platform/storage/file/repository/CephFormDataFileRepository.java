@@ -59,6 +59,12 @@ public class CephFormDataFileRepository implements FormDataFileRepository {
     }
 
     @Override
+    public List<FileMetadataDto> getMetadata(String prefix) {
+        var result = cephService.getMetadata(cephBucketName, prefix);
+        return toFileMetadataDtoList(result);
+    }
+
+    @Override
     public Set<String> getKeys(String prefix) {
         return cephService.getKeys(cephBucketName, prefix);
     }
