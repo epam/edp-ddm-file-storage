@@ -42,7 +42,7 @@ public class FormDataFileStorageServiceFactory {
                 .build();
     }
 
-    private FormDataFileRepository newCephFormDataFileRepository(FileDataCephStorageConfiguration config) {
+    public FormDataFileRepository newCephFormDataFileRepository(FileDataCephStorageConfiguration config) {
         return CephFormDataFileRepository.builder()
                 .cephBucketName(config.getBucket())
                 .cephService(newCephServiceS3(config))
