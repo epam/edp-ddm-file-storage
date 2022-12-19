@@ -15,7 +15,13 @@
  *
  */
 
-package com.epam.digital.data.platform.storage.file.sevice;
+package com.epam.digital.data.platform.storage.file.service;
+
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import com.epam.digital.data.platform.integration.ceph.model.CephObject;
 import com.epam.digital.data.platform.integration.ceph.model.CephObjectMetadata;
@@ -24,28 +30,18 @@ import com.epam.digital.data.platform.storage.file.dto.FileDataDto;
 import com.epam.digital.data.platform.storage.file.dto.FileMetadataDto;
 import com.epam.digital.data.platform.storage.file.exception.FileNotFoundException;
 import com.epam.digital.data.platform.storage.file.repository.CephFormDataFileRepository;
-import com.epam.digital.data.platform.storage.file.service.FormDataFileKeyProvider;
-import com.epam.digital.data.platform.storage.file.service.FormDataFileKeyProviderImpl;
-import com.epam.digital.data.platform.storage.file.service.FormDataFileStorageService;
-import lombok.SneakyThrows;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
-
 import java.io.ByteArrayInputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
-
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import lombok.SneakyThrows;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
 class FormDataFileStorageServiceTest {
