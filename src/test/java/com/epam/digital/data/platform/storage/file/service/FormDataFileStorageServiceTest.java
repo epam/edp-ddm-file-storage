@@ -201,4 +201,15 @@ class FormDataFileStorageServiceTest {
 
     assertThat(exception.getIds().iterator().next()).isEqualTo(documentId);
   }
+
+  @Test
+  void testDeleteByProcInstIdAndId() {
+    var procInstId = "procInstId";
+    var fileId = "uuid";
+    var key = keyProvider.generateKey(procInstId, fileId);
+
+    fileStorageService.deleteByProcessInstanceIdAndId(procInstId, fileId);
+
+    verify(cephService).delete(bucketName, Set.of(key));
+  }
 }

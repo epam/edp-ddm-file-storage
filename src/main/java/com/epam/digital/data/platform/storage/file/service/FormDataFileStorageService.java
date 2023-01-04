@@ -145,4 +145,18 @@ public class FormDataFileStorageService {
           processInstanceId);
     }
   }
+
+  /**
+   * Delete file by file id and process instance id.
+   *
+   * @param processInstanceId specified process id
+   * @param id specified file id
+   */
+  public void deleteByProcessInstanceIdAndId(String processInstanceId, String id) {
+    log.info("Delete file by process instance id {}, file id {}", processInstanceId, id);
+    var key = keyProvider.generateKey(processInstanceId, id);
+    repository.delete(Set.of(key));
+    log.info("Deleted next file from storage - {}, processInstanceId={}", key,
+        processInstanceId);
+  }
 }
