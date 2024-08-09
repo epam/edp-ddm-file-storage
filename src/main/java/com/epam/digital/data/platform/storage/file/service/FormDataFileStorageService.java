@@ -102,18 +102,16 @@ public class FormDataFileStorageService {
    *
    * @param processInstanceId the process instance id to whom file ids attracted to
    * @param fileIds           specified file ids
-   * @return
-   * @throws FileNotFoundException if at least one file is not found
+   * @return list of files metadata
    */
   public List<FileMetadataDto> getMetadata(String processInstanceId, Set<String> fileIds) {
     log.info("Get metadata by process instance id {} and file ids {}", processInstanceId, fileIds);
     var keys = fileIds.stream()
         .map(id -> keyProvider.generateKey(processInstanceId, id)).collect(Collectors.toSet());
     var result = repository.getMetadata(keys);
-    if (result.isEmpty()) {
-      throw new FileNotFoundException(fileIds);
+    if (!result.isEmpty()) {
+      log.info("Metadata was found by keys {}", keys);
     }
-    log.info("Metadata was found by keys {}", keys);
     return result;
   }
 
